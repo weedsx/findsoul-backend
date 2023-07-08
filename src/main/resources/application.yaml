@@ -1,0 +1,29 @@
+spring:
+#  devtools:
+#    restart:
+#      enabled: true  #设置开启热部署
+#      additional-paths: src/main/java #重启目录
+#      exclude: WEB-INF/**
+  profiles:
+    active: dev
+  application:
+    name: find-soul-backend
+  # session 失效时间：一天
+  session:
+    timeout: 86400
+    store-type: redis # 与spring-session-data-redis配合将session存入redis
+
+server:
+  servlet:
+    context-path: /api
+#    session:
+#      timeout: 60m
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
