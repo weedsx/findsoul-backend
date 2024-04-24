@@ -8,7 +8,8 @@ import java.util.Objects;
  */
 public class AlgorithmUtils {
     /**
-     * 编辑距离算法（用于计算最相似的两组标签）
+     * 编辑距离算法：是一种衡量两个字符串之间差异的算法
+     * 空间和时间复杂度都是 O(n*m)，其中 m 和 n 分别是两个字符串的长度
      * <a href="https://blog.csdn.net/DBC_121/article/details/104198838">原理</a>
      *
      * @param tagList1 tagList1

@@ -233,7 +233,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public List<UserBo> getMatchUsers(long num, User loginUser) {
-        // 先进行筛选，只取 id 和 tags
+        // 先查询所有用户，只取 id 和 tags
+        // 并剔除 tags 为空的，包括 [] 和 NULL
         LambdaQueryWrapper<User> lambdaQW = new LambdaQueryWrapper<>();
         lambdaQW.select(User::getId, User::getTags)
                 // 剔除自己
@@ -255,7 +256,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             int distance = AlgorithmUtils.minDistance(currTagList, tagList);
             pairList.add(Pair.of(user, distance));
         }
-        // pairList 按相似度由小到大排序
+        // pairList 按相似度由小到大排序，并截取前 num 个 User
         List<Pair<User, Integer>> sortedPairList = pairList.stream()
                 .sorted(Comparator.comparingInt(Pair::getRight))
                 .limit(num)
